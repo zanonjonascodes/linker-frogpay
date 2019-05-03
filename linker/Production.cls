@@ -22,6 +22,10 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
     <Setting Target="Adapter" Name="SSLConfig">SAPB1</Setting>
   </Item>
+  <Item Name="Phoebus Get Payments D-1" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="Pooling Process BPL" Category="" ClassName="linker.bp.pooling.ProcessBPL" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
 </Production>
 }
 
