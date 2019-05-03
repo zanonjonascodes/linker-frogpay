@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="cache-16a79d08bb3-16dd571119c30f9f" provider="generic" driver="cache" name="Cache - CSILVA_LINKER_FROGPAY" save-password="true" read-only="false">
+		<connection host="10.10.139.11" port="51773" server="" database="CSILVA_LINKER_FROGPAY" url="jdbc:Cache://10.10.139.11:51773/CSILVA_LINKER_FROGPAY" user="cristiano.silva" password="IBEWc1NwFxgNRlde9g==" type="dev"/>
+	</data-source>
+	<filters/>
+</data-sources>

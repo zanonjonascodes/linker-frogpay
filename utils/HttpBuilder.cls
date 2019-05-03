@@ -51,4 +51,14 @@ ClassMethod SAPBuildTokenResetCollecionts(pToken As %String) As %ArrayOfObjects
 	Return headerArray
 }
 
+ClassMethod PhoebusTokenRequestHeader(pToken As %String) As %ArrayOfObjects
+{
+	#Dim headerArray As %ArrayOfDataTypes = ##class(%ArrayOfDataTypes).%New()
+	//
+	Do headerArray.SetAt("Bearer "_ pToken  ,"Authorization")
+	Do headerArray.SetAt("application/json","Content-Type")
+	//
+	Return headerArray
+}
+
 }
