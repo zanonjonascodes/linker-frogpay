@@ -1,6 +1,12 @@
 Class linker.bs.pooling.Service Extends Ens.BusinessService
 {
 
+Property ServiceName As %String;
+
+Property InstanceName As %String;
+
+Parameter SETTINGS As %String = "ServiceName:Linker,InstanceName:Linker";
+
 Parameter ADAPTER = "Ens.InboundAdapter";
 
 /// Check for all Services that has configured to be polled.
@@ -12,8 +18,15 @@ Method OnProcessInput(pInput As %RegisteredObject, Output pOutput As %Registered
 		#Dim statusCode As %Status           = $System.Status.OK()
 		#Dim spContext As %ProcedureContext  = ""
 		//
-		Set spContext = ##Class(%SQL.Statement).%ExecDirect(,"CALL linker_data_config.Services_ListAllPooling() ")
-		//
+		If (..ServiceName '= "" && ..InstanceName '= "")
+		{
+			Set spContext = ##Class(%SQL.Statement).%ExecDirect(,"CALL linker_data_config.Services_ListAllPooling() ")
+		}
+		Else
+		{
+			Set spContext = ##Class(%SQL.Statement).%ExecDirect(,
+			  "CALL linker_data_config.Services_ListPoolingByServiceInstanceName(?, ?", ..ServiceName, ..InstanceName)
+		}
         While (spContext.%Next(.statusCode))
         {
         	If ($System.Status.IsError(statusCode))

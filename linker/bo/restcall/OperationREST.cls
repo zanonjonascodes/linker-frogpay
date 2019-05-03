@@ -131,15 +131,9 @@ Method CallRestURL(httpMethod As %String, pRequest As linker.bo.restcall.generic
 		}
 		Else
 		{
-			#Dim callbackClassName As %RawString  = pRequest.RestRequestVO.CallBackClassName
-			#Dim callBackMethodName As %RawString = pRequest.RestRequestVO.CallBackMethodName
+			Set pResponse.RestResponseVO = httpResponseVO
 			//
-			If ((callBackClassName '= "") && (callBackMethodName '= ""))
-			{
-				Do $ClassMethod(callbackClassName, callBackMethodName, httpRequestVO, httpResponseVO)
-				//
-				Set pResponse.RestResponseVO = httpResponseVO
-			}
+			Do pResponse.DoSpecifAction(pRequest)
 		}
 	}
 	Catch(e)

@@ -30,6 +30,20 @@ ClassMethod BuildRestUrlParameters(pResourcePath As %String,  pParameters As %St
 		Set parameter    = $Piece(pParameters, ",", index)
 		Set resourcePath = $Replace(resourcePath, "*", parameter, 1, 1)
 	}
+	Return resourcePath
+}
+
+ClassMethod BuildRestUrlParametersEncoded(pResourcePath As %String,  pParameters As %String) As %String [Final]
+{
+	#Dim index As %Integer    = 1
+	#Dim resourcePath         = pResourcePath
+	#Dim parameter As %String = ""
+	//
+	For index = 1 : 1 : $Length(pParameters, ",")
+	{
+		Set parameter    = $Piece(pParameters, ",", index)
+		Set resourcePath = $Replace(resourcePath, "*", parameter, 1, 1)
+	}
 	If ($Find(resourcePath,  "?"))
 	{
 		Set resourcePath = $Piece(resourcePath, "?", 1) _ "?" _ ##Class(%CSP.Page).EscapeURL($Piece(resourcePath, "?", 2))

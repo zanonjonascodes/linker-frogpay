@@ -48,6 +48,24 @@ Query ListAllPooling() As %SQLQuery [SqlProc]
     INNER JOIN linker_data_config.Services AS Serv ON Serv.Instance = Inst.ID AND Pooling = 1 
 }
 
+Query ListPoolingByServiceInstanceName(pServiceName As %String, pInstanceName As %String) As %SQLQuery [SqlProc]
+{
+	SELECT Inst.Host
+	      ,Inst.HttpsEnabled
+	      ,Inst.ID As InstanceId
+	      ,$LISTTOSTRING(Serv.Parameters) AS Parameters
+	      ,Inst.Port
+	      ,Serv.ResourcePath
+	      ,Serv.ID AS ServiceId
+	      ,Serv.ServiceName
+	      ,Serv.TargetBusinessHost
+	      ,Serv.TargetRequestClassName
+	      ,Inst.Type
+	FROM linker_data_config.Instance AS Inst 
+    INNER JOIN linker_data_config.Services AS Serv ON Serv.Instance = Inst.ID AND Pooling = 1
+    WHERE Serv.ServiceName = :pServiceName AND Inst.Name = :pInstanceName
+}
+
 Storage Default
 {
 <Data name="ServicesDefaultData">

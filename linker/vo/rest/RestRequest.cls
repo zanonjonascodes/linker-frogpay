@@ -7,9 +7,10 @@ Property HttpRequestBody As %String(MAXLEN="");
 
 Property HttpHeaderArray As array Of %String(MAXLEN="");
 
-Property CallBackClassName As %RawString;
+Property ServiceId As %String;
 
-Property CallBackMethodName As %RawString;
+Property InstanceId As %String;
+
 
 Storage Default
 {
@@ -24,10 +25,10 @@ Storage Default
 <Value>HttpHeaderArray</Value>
 </Value>
 <Value name="4">
-<Value>CallBackClassName</Value>
+<Value>ServiceId</Value>
 </Value>
 <Value name="5">
-<Value>CallBackMethodName</Value>
+<Value>InstanceId</Value>
 </Value>
 </Data>
 <State>RestRequestState</State>

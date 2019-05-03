@@ -9,7 +9,7 @@ Method SaveInRepository(pRequest As linker.bo.pooling.saveinrepository.Request, 
 		#Dim statusCode As %Status           = $System.Status.OK()
 		//
 		Set pResponse         = ##Class(linker.bo.pooling.saveinrepository.Response).%New()
-		Set pResponse.NextURL = ##Class(linker.boapi.Pooling).ProcessJson(pRequest) 
+		Set pResponse.NextURL = ##Class(linker.boapi.Pooling).ProcessJson(pRequest)
 	}
 	Catch (exception)
 	{

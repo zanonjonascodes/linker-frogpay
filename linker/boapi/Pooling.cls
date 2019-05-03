@@ -3,7 +3,7 @@ Include Ensemble
 ///<p>
 ///  <b>2019-04-08 - Cristiano Jose da Silva</b>
 ///</p>
-Class linker.boapi.Pooling [Abstract, Final]
+Class linker.boapi.Pooling [ Final ]
 {
 
 /// Process JSON according Service Name
@@ -29,6 +29,15 @@ ClassMethod ProcessJson(pRequest As linker.bo.pooling.saveinrepository.Request) 
 		{
 			Set hasNext = ..ProcessOccJsonOrder(pRequest.JSONString , serviceConsumer)
 		}
+		ElseIf (service.TargetBusinessHost = "Phoebus Get Payments")
+		{
+			Set hasNext = ..ProcessPhoebusJsonPayments(pRequest.JSONString , serviceConsumer)
+			//
+			If (hasNext '= "")
+			{
+				Set hasNext = $Piece(pRequest.ResourcePath, "&page=", 1) _ hasNext
+			}
+		}
 	}
 	Catch (exception)
 	{
@@ -37,7 +46,6 @@ ClassMethod ProcessJson(pRequest As linker.bo.pooling.saveinrepository.Request) 
 	Return hasNext
 }
 
-/// Read all items from JSON and save in the repository to be processed, return url to the next items or empty otherwise.
 ClassMethod ProcessSapb1JsonItems(pJSONString As %String, pService As linker.data.config.Services) As %String [ Private, Final ]
 {
 	Try
@@ -74,7 +82,6 @@ ClassMethod ProcessSapb1JsonItems(pJSONString As %String, pService As linker.dat
 	Return hasNext
 }
 
-/// Read all orders from JSON and save in the repository to be processed, return url to the next items or empty otherwise.
 ClassMethod ProcessOccJsonOrder(pJSONString As %String, pService As linker.data.config.Services) As %String [ Private, Final ]
 {
 	Try
@@ -111,6 +118,45 @@ ClassMethod ProcessOccJsonOrder(pJSONString As %String, pService As linker.data.
 				//
 				Break 
 			}
+		}
+	}
+	Catch (exception)
+	{
+		Throw exception
+	}
+	Return hasNext
+}
+
+ClassMethod ProcessPhoebusJsonPayments(pJSONString As %String, pService As linker.data.config.Services) As %String [ Private, Final ]
+{
+	Try
+	{
+		#Dim exception As %Exception.General                  = ""
+		#Dim statusCode AS %Status                            = $System.Status.OK()
+		#Dim payments As %DynamicObject                       = ##Class(%DynamicObject).%FromJSON(pJSONString)
+		#Dim payment As %DynamicObject                        = {}
+		#Dim key As %String                                   = ""
+		#Dim paymentsIterator As %Collection.AbstractIterator = payments.content.%GetIterator()
+		#Dim hasNext As %String                               = "" 
+		//
+		Try
+		{
+			Do ..SaveInRepository(paymentsIterator, pService)
+		}
+		Catch (exception)
+		{
+			#Dim errorMessage As %String = exception.DisplayString()
+			//
+			$$$LOGERROR("Error save Phoebus peyment in the repository: " _ errorMessage)
+			//
+			Throw exception
+		}
+		#Dim totalPages As %Integer = payments."total_pages"
+		#Dim page As %Integer       = payments.page
+		//
+		If (page < totalPages)
+		{
+			Set hasNext = "&page=" _ (page + 1)
 		}
 	}
 	Catch (exception)
