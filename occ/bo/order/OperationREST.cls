@@ -1,11 +1,11 @@
-///<p>
+/// <p>
 ///  <b>2019-04-04 - Cristiano Jose da Silva</b><br>
 ///  Get Orders from Oracle Commerce Cloud.
-///</p>
+/// </p>
 Class occ.bo.order.OperationREST Extends linker.rest.RestCall
 {
 
-///<p>
+/// <p>
 ///  <a href="https://docs.oracle.com/en/cloud/saas/commerce-cloud/cxocc/op-ccadmin-v1-orders-get.html">
 ///    /ccadmin/v1/orders?q=lastModifiedDate > date("*") & sort=lastModifiedDate:desc
 ///  </a>
@@ -43,7 +43,7 @@ Method GetOrders(pRequest As occ.bo.order.getorders.Request, Output pResponse As
 	Return statusCode
 }
 
-///<p>
+/// <p>
 ///  <a href="https://docs.oracle.com/en/cloud/saas/commerce-cloud/cxocc/op-ccadmin-v1-orders-id-put.htmll">
 ///    /ccadmin/v1/orders/{id}
 ///  </a>
@@ -72,7 +72,6 @@ Method UpdateOrders(pRequest As occ.bo.order.updateorders.Request, Output pRespo
 	}
 	Return statusCode
 }
-
 
 XData MessageMap
 {
