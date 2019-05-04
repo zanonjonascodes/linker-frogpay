@@ -1,4 +1,4 @@
-Class phoebus.message.payment.get.Response Extends linker.bo.restcall.get.Response
+Class skipper.message.transaction.get.Response Extends linker.bo.restcall.get.Response
 {
 
 Method DoSpecifAction(pArgs...)
@@ -12,6 +12,7 @@ Method DoSpecifAction(pArgs...)
 		#Dim service As linker.data.config.Services         = ##Class(linker.data.config.Services).%OpenId(serviceId)
 		//
 		Do service.Parameters.SetAt($ZDate(+$Horolog - 1, 3), 1)
+		Do service.Parameters.SetAt($ZDate(+$Horolog - 1, 3), 2)
 		//
 		Set statusCode = service.%Save()
 		//

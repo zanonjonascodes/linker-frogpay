@@ -1,13 +1,12 @@
 Include Ensemble
 
-///<p>
+/// <p>
 ///  <b>2019-04-08 - Cristiano Jose da Silva</b>
-///</p>
-Class linker.boapi.Pooling [ Final ]
+/// </p>
+Class linker.boapi.Pooling [ Abstract ]
 {
 
-/// Process JSON according Service Name
-ClassMethod ProcessJson(pRequest As linker.bo.pooling.saveinrepository.Request) As %String
+ClassMethod ProcessJson(pRequest As linker.bo.pooling.saveinrepository.Request) As %String [ Final ]
 {
 	Try
 	{
@@ -15,29 +14,11 @@ ClassMethod ProcessJson(pRequest As linker.bo.pooling.saveinrepository.Request) 
 		#Dim statusCode As %Status                          = $System.Status.OK()
 		#Dim service As linker.data.config.Services         = ##Class(linker.data.config.Services).%OpenId(pRequest.ServiceId)
 		#Dim serviceConsumer As linker.data.config.Services = service.Consumer
-		#Dim hasNext AS %String                             = ""
+		#Dim hasNext As %String                             = ""
+		#Dim classme As %RawString                          = ##Class(utils.FunctionSet).Lookup("REPOSITORY_PROCESS_JSON", service.TargetBusinessHost)
 		//
-		If ((service.TargetBusinessHost = "SAPB1 Item") || (service.TargetBusinessHost = "SAPB1 Get Stock Movements"))
-		{
-			Set hasNext = ..ProcessSapb1JsonItems(pRequest.JSONString , serviceConsumer)
-			If (hasNext '= "")
-			{
-				Set hasNext = $Piece(pRequest.ResourcePath, "Items?", 1)  _ hasNext
-			}			
-		}
-		ElseIf (service.TargetBusinessHost = "OCC Orders")
-		{
-			Set hasNext = ..ProcessOccJsonOrder(pRequest.JSONString , serviceConsumer)
-		}
-		ElseIf (service.TargetBusinessHost = "Phoebus Get Payments")
-		{
-			Set hasNext = ..ProcessPhoebusJsonPayments(pRequest.JSONString , serviceConsumer)
-			//
-			If (hasNext '= "")
-			{
-				Set hasNext = $Piece(pRequest.ResourcePath, "&page=", 1) _ hasNext
-			}
-		}
+		Set hasNext = $ClassMethod(classname, "PreSaveinRepository", pRequest.JSONString , serviceConsumer, service.ResourcePath)
+		
 	}
 	Catch (exception)
 	{
@@ -46,127 +27,11 @@ ClassMethod ProcessJson(pRequest As linker.bo.pooling.saveinrepository.Request) 
 	Return hasNext
 }
 
-ClassMethod ProcessSapb1JsonItems(pJSONString As %String, pService As linker.data.config.Services) As %String [ Private, Final ]
+ClassMethod PreSaveinRepository(pJSONString As %String, pServiceConsumer As linker.data.config.Services, pResourcePath As %String) As %String [ Abstract, Private ]
 {
-	Try
-	{
-		#Dim exception As %Exception.General               = ""
-		#Dim statusCode AS %Status                         = $System.Status.OK()
-		#Dim items As %DynamicObject                       = ##Class(%DynamicObject).%FromJSON(pJSONString)
-		#Dim item As %DynamicObject                        = {}
-		#Dim key As %String                                = ""
-		#Dim itemsIterator As %Collection.AbstractIterator = items.value.%GetIterator()
-		#Dim hasNext As %String                            = "" 
-		//
-		Try
-		{
-			Do ..SaveInRepository(itemsIterator, pService)
-		}
-		Catch (exception)
-		{
-			#Dim errorMessage As %String = exception.DisplayString()
-			///
-			$$$LOGERROR("Error save SAPB1 item in the repository: " _ errorMessage)
-			//
-			Throw exception
-		}
-		If (items."@odata.nextLink" '= "")
-		{
-			Set hasNext = items."@odata.nextLink"
-		}
-	}
-	Catch (exception)
-	{
-		Throw exception
-	}
-	Return hasNext
 }
 
-ClassMethod ProcessOccJsonOrder(pJSONString As %String, pService As linker.data.config.Services) As %String [ Private, Final ]
-{
-	Try
-	{
-		#Dim exception As %Exception.General                = ""
-		#Dim statusCode AS %Status                          = $System.Status.OK()
-		#Dim orders As %DynamicObject                       = ##Class(%DynamicObject).%FromJSON(pJSONString)
-		#Dim order As %DynamicObject                        = {}
-		#Dim key As %String                                 = ""
-		#Dim ordersIterator As %Collection.AbstractIterator = orders.items.%GetIterator()
-		#Dim hasNext As %String                             = "" 
-		//
-		Try
-		{
-			Do ..SaveInRepository(ordersIterator, pService)
-		}
-		Catch (exception)
-		{
-			#Dim errorMessage As %String = exception.DisplayString()
-			//
-			$$$LOGERROR("Error save OCC order in the repository: " _ errorMessage)
-			//
-			Throw exception
-		}
-		#Dim linkIterator As %Collection.AbstractIterator = orders.links.%GetIterator()
-		#Dim linkKey As %String                           = ""
-		#Dim link As %DyamicObject                        = ""
-		//
-		While (ordersIterator.%GetNext(.linkKey, .link))
-		{
-			If (link.rel = "next")
-			{
-				Set hasNext = link.href
-				//
-				Break 
-			}
-		}
-	}
-	Catch (exception)
-	{
-		Throw exception
-	}
-	Return hasNext
-}
-
-ClassMethod ProcessPhoebusJsonPayments(pJSONString As %String, pService As linker.data.config.Services) As %String [ Private, Final ]
-{
-	Try
-	{
-		#Dim exception As %Exception.General                  = ""
-		#Dim statusCode AS %Status                            = $System.Status.OK()
-		#Dim payments As %DynamicObject                       = ##Class(%DynamicObject).%FromJSON(pJSONString)
-		#Dim payment As %DynamicObject                        = {}
-		#Dim key As %String                                   = ""
-		#Dim paymentsIterator As %Collection.AbstractIterator = payments.content.%GetIterator()
-		#Dim hasNext As %String                               = "" 
-		//
-		Try
-		{
-			Do ..SaveInRepository(paymentsIterator, pService)
-		}
-		Catch (exception)
-		{
-			#Dim errorMessage As %String = exception.DisplayString()
-			//
-			$$$LOGERROR("Error save Phoebus peyment in the repository: " _ errorMessage)
-			//
-			Throw exception
-		}
-		#Dim totalPages As %Integer = payments."total_pages"
-		#Dim page As %Integer       = payments.page
-		//
-		If (page < totalPages)
-		{
-			Set hasNext = "&page=" _ (page + 1)
-		}
-	}
-	Catch (exception)
-	{
-		Throw exception
-	}
-	Return hasNext
-}
-
-ClassMethod SaveInRepository(pObjects As %Collection.AbstractIterator, pService As linker.data.config.Services) [ Final, Private ]
+ClassMethod SaveInRepository(pObjects As %Collection.AbstractIterator, pServiceConsumer As linker.data.config.Services) [ Final, Private ]
 {
 	Try
 	{
@@ -186,7 +51,7 @@ ClassMethod SaveInRepository(pObjects As %Collection.AbstractIterator, pService 
 				{
 					Set jsonString = object
 				}
-				Do ##Class(linker.data.Repository).CreateEntry(jsonString, pService)
+				Do ##Class(linker.data.Repository).CreateEntry(jsonString, pServiceConsumer)
 			}
 			Catch (exception)
 			{

@@ -5,7 +5,7 @@ Parameter RESPONSECLASSNAME As %String = "phoebus.message.payment.get.Response";
 
 Method SetHeaderToken(pToken As %String)
 {
-	Set ..RestRequestVO.HttpHeaderArray = ##Class(utils.HttpBuilder).PhoebusTokenRequestHeader(pToken)
+	Set ..RestRequestVO.HttpHeaderArray = ##Class(utils.HttpBuilder).PhoebusTokenRequestHeader(..RestRequestVO.InstanceId)
 }
 
 Storage Default

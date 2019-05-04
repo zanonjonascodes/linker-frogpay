@@ -1,4 +1,4 @@
-Class phoebus.message.payment.get.Response Extends linker.bo.restcall.get.Response
+Class cloudwalk.message.payment.get.Response Extends linker.bo.restcall.get.Response
 {
 
 Method DoSpecifAction(pArgs...)
@@ -7,11 +7,12 @@ Method DoSpecifAction(pArgs...)
 	{
 		#Dim statusCode As %Status                          = $System.Status.OK()
 		#Dim exception As %Exception.General                = ""
-		#Dim request As phoebus.message.payment.get.Request = pArgs(1)
+		#Dim request As cloudwalk.message.payment.get.Request = pArgs(1)
 		#Dim serviceId As %String                           = request.RestRequestVO.ServiceId
 		#Dim service As linker.data.config.Services         = ##Class(linker.data.config.Services).%OpenId(serviceId)
 		//
 		Do service.Parameters.SetAt($ZDate(+$Horolog - 1, 3), 1)
+		Do service.Parameters.SetAt($ZDate(+$Horolog - 1, 3), 2)
 		//
 		Set statusCode = service.%Save()
 		//

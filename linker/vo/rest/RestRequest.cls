@@ -11,7 +11,6 @@ Property ServiceId As %String;
 
 Property InstanceId As %String;
 
-
 Storage Default
 {
 <Data name="RestRequestState">

@@ -54,9 +54,26 @@ ClassMethod SAPBuildTokenResetCollecionts(pToken As %String) As %ArrayOfObjects
 ClassMethod PhoebusTokenRequestHeader(pToken As %String) As %ArrayOfObjects
 {
 	#Dim headerArray As %ArrayOfDataTypes = ##class(%ArrayOfDataTypes).%New()
+	#Dim token As %String                 = ##Class(linker.data.token.Token).idxInstanceIdOpen(pInstanceId).Token
 	//
 	Do headerArray.SetAt("Bearer "_ pToken  ,"Authorization")
 	Do headerArray.SetAt("application/json","Content-Type")
+	//
+	Return headerArray
+}
+
+ClassMethod CloudWalktokenRequest(pInstanceId As %String) As %String
+{
+	Return "&access_token=" _ ##Class(linker.data.token.Token).idxInstanceIdOpen(pInstanceId).Token
+}
+
+ClassMethod SkipperTokenRequestHeader(pInstanceId As %String) As %ArrayOfObjects
+{
+	#Dim credential As skipper.data.config.CredentialSkipper = (skipper.data.config.CredentialSkipper).InstanceIdIdxOpen(pInstanceId)
+	#Dim headerArray As %ArrayOfDataTypes = ##class(%ArrayOfDataTypes).%New()
+	#Dim basicToken As %String = $Translate($System.Encryption.Base64Encode(credential.Username _":" _ credential.Password), $Char(13,10))
+	//
+	Do headerArray.SetAt("Authorization", "Basic "_ basicToken)
 	//
 	Return headerArray
 }
