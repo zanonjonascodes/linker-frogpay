@@ -7,14 +7,12 @@ Parameter SETTINGS = "RetryTimes:LINKER";
 
 XData ProductionDefinition
 {
-<Production Name="linker.Production" TestingEnabled="false" LogGeneralTraceEvents="false">
+<Production Name="linker.Production" TestingEnabled="true" LogGeneralTraceEvents="true">
   <Description></Description>
   <ActorPoolSize>2</ActorPoolSize>
-  <Item Name="Phoebus Get Payments" Category="" ClassName="linker.bo.restcall.OperationREST" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Phoebus Get Payments" Category="" ClassName="linker.bo.restcall.OperationREST" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
     <Setting Target="Adapter" Name="SSLConfig">SAPB1</Setting>
-  </Item>
-  <Item Name="Phoebus Get Payments D-1" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
   <Item Name="SAPB1 Login" Category="Security, SAPB1" ClassName="sapb1.bo.security.Operation" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
@@ -41,7 +39,7 @@ XData ProductionDefinition
   <Item Name="Pooling Service" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="CallInterval">3000</Setting>
   </Item>
-  <Item Name="Pooling Process BPL" Category="" ClassName="linker.bp.pooling.ProcessBPL" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Pooling Process BPL" Category="" ClassName="linker.bp.pooling.ProcessBPL" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
   <Item Name="OCC Orders" Category="" ClassName="occ.bo.order.OperationREST" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="SSLConfig">SAPB1</Setting>
@@ -55,7 +53,7 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
     <Setting Target="Adapter" Name="SSLConfig">SAPB1</Setting>
   </Item>
-  <Item Name="Save Pooling" Category="" ClassName="linker.bo.pooling.Opertaion" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Save Pooling" Category="" ClassName="linker.bo.pooling.Opertaion" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
   <Item Name="SAPB1 Business Partner" Category="" ClassName="sapb1.bo.businesspartner.Operation" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
@@ -126,6 +124,11 @@ XData ProductionDefinition
     <Setting Target="Host" Name="InstanceId">OCC Intragroup - KDPNEUS</Setting>
     <Setting Target="Host" Name="ServiceName">SAPB1 NFE BPL</Setting>
     <Setting Target="Adapter" Name="CallInterval">3000</Setting>
+  </Item>
+  <Item Name="Pooling Phoebus Get Payments D-1" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="InstanceName">PHOEBUS</Setting>
+    <Setting Target="Host" Name="ServiceName">Get Payments D-1</Setting>
+    <Setting Target="Adapter" Name="CallInterval">36000</Setting>
   </Item>
 </Production>
 }
