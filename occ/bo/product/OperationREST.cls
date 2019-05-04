@@ -5,7 +5,7 @@ Parameter INVOCATION = "Queue";
 
 Property Adapter As EnsLib.HTTP.OutboundAdapter;
 
-Property DeleteProductReourcePath As %String [InitialExpression = "/ccadmin/v1/products/{id}"];
+Property DeleteProductReourcePath As %String [ InitialExpression = "/ccadmin/v1/products/{id}" ];
 
 Parameter SETTINGS = "DeleteProductReourcePath:OCC";
 
@@ -32,7 +32,7 @@ Method InsertProduct(request As occ.bo.product.insertproduct.Request, response A
 	}
 	Return statusCode
 }
- 
+
 Method DeleteProduct(pRequest As occ.bo.product.deleteproduct.Request, pResponse As linker.bo.restcall.genericoperation.Response) As %Status
 {
 	Try
@@ -57,7 +57,6 @@ Method DeleteProduct(pRequest As occ.bo.product.deleteproduct.Request, pResponse
 	}
 	Return statusCode
 }
-
 
 /// https://ccadmin-test-zbxa.oracleoutsourcing.com/ccadmin/v1/products/{id}
 Method ExistsProduct(pRequest As occ.bo.product.existsproduct.Request, Output pResponse As occ.bo.product.existsproduct.Response) As %Status

@@ -1,7 +1,7 @@
 Class linker.vo.rest.RestResponse Extends (%SerialObject, %XML.Adaptor)
 {
 
-Property HttpResponseBody As %String(MAXLEN = "");
+Property HttpResponseBody As %String(MAXLEN="");
 
 Property HttpStatusCode As %String;
 
