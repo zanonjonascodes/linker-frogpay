@@ -1,7 +1,10 @@
-Class sapb1.vo.skipper.skippersales.Document Extends (%SerialObject,%XML.Adaptor)
+Class sapb1.vo.skipper.skippersales.Document Extends (%SerialObject, %XML.Adaptor)
 {
-Property Number As %String(MAXLEN="");
-Property Type As %String(MAXLEN="");
+
+Property Number As %String(MAXLEN = "");
+
+Property Type As %String(MAXLEN = "");
+
 Storage Default
 {
 <Data name="DocumentState">
