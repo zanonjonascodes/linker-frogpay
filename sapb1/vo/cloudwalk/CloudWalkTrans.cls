@@ -1,4 +1,4 @@
-Class sapb1.vo.cloudwalk.CloudWalkTrans Extends %SerialObject
+Class sapb1.vo.cloudwalk.CloudWalkTrans Extends (%SerialObject,%XML.Adaptor)
 {
 
 Property CaptureMethod As %String;
