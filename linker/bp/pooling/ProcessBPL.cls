@@ -37,8 +37,8 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <sequence xend='200' yend='900' >
 <switch name='Source Login' xpos='200' ypos='250' xend='200' yend='600' >
 <case condition='request.Type = "OCC"' name='OCC' >
-<assign name="Login URL" property="context.LoginURL" value="##Class(utils.FunctionSet).GetResourcePathByServiceNameInstance(request.InstanceId)" action="set" xpos='605' ypos='400' />
-<call name='Login OCC' target='OCC Get Token' async='0' xpos='605' ypos='500' >
+<assign name="Login URL" property="context.LoginURL" value="##Class(utils.FunctionSet).GetResourcePathByServiceNameInstance(request.InstanceId)" action="set" xpos='332' ypos='403' />
+<call name='Login OCC' target='OCC Get Token' async='0' xpos='335' ypos='500' >
 <request type='occ.bp.security.Token.Request' >
 <assign property="callrequest.InstanceId" value="request.InstanceId" action="set" />
 <assign property="callrequest.Url" value="context.LoginURL" action="set" />
@@ -49,8 +49,8 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </call>
 </case>
 <case condition='request.Type = "SAPB1"' name='SAPB1' >
-<assign name="Login URL" property="context.LoginURL" value="##Class(utils.FunctionSet).GetResourcePathByServiceNameInstance(request.InstanceId)" action="set" xpos='875' ypos='400' />
-<call name='Login SAPB1' target='SAPB1 Get Token' async='0' xpos='875' ypos='500' >
+<assign name="Login URL" property="context.LoginURL" value="##Class(utils.FunctionSet).GetResourcePathByServiceNameInstance(request.InstanceId)" action="set" xpos='605' ypos='400' />
+<call name='Login SAPB1' target='SAPB1 Get Token' async='0' xpos='605' ypos='500' >
 <request type='sapb1.bp.security.Token.Request' >
 <assign property="callrequest.InstanceId" value="request.InstanceId" action="set" />
 <assign property="callrequest.Url" value="context.LoginURL" action="set" />
@@ -64,7 +64,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </switch>
 <transform name='Create the service request' class='linker.dt.pooling.FromPoolingRequestToCallRequest' source='request' target='context' xpos='200' ypos='700' />
 <until name='No Next URL' condition='context.NextURL = ""' xpos='200' ypos='800' xend='200' yend='550' >
-<call name='Pooling' target='@request.TargetBusinessHost' async='0' xpos='200' ypos='250' >
+<call name='Pooling' target='@request.TargetBusinessHost' async='0' xpos='200' ypos='245' >
 <request type='linker.bo.restcall.genericoperation.Request' >
 <assign property="callrequest" value="context.ServiceRequest" action="set" />
 </request>

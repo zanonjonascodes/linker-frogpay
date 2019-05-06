@@ -10,7 +10,14 @@ ClassMethod PreSaveInRepository(pJSONString As %String, pService As linker.data.
 		#Dim transactions As %DynamicObject                = ##Class(%DynamicObject).%FromJSON(pJSONString)
 		#Dim sale As %DynamicObject                        = {}
 		#Dim key As %String                                = ""
-		#Dim salesIterator As %Collection.AbstractIterator = transactions.sales.%GetIterator()
+		#Dim sales As %DynamicObject                       = transactions.sales
+		//
+		If ('$IsObject(sales))
+		{
+			Return ""
+		}
+		break
+		#Dim salesIterator As %Collection.AbstractIterator = sales.%GetIterator()
 		#Dim hasNext As %String                            = "" 
 		//
 		Try
@@ -27,7 +34,7 @@ ClassMethod PreSaveInRepository(pJSONString As %String, pService As linker.data.
 		}
 		#Dim totalNumberOfRecords As %Integer = transactions.pageInfo.totalNumberOfRecords
 		#Dim pageSize As %Integer             = transactions.pageInfo.pageSize
-		#Dim page As %Integer                 = payments.pageNumber
+		#Dim page As %Integer                 = transactions.pageInfo.pageNumber
 		#Dim totalPages As %Integer           = totalNumberOfRecords / pageSize
 		//
 		If (page < totalPages)

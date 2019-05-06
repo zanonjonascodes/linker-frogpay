@@ -1,7 +1,7 @@
 Class utils.FunctionSet Extends Ens.Rule.FunctionSet
 {
 
-ClassMethod GetResourcePathByServiceNameInstance(instance As %Integer, serviceName As %String = "Login") As %String [Final]
+ClassMethod GetResourcePathByServiceNameInstance(instance As %Integer, serviceName As %String = "Login") As %String [ Final ]
 {
 	#Dim spContext As %ProcedureContext = ""
 	//
@@ -19,12 +19,13 @@ ClassMethod GetResourcePathByServiceNameInstance(instance As %Integer, serviceNa
 	Return ""
 }
 
-ClassMethod BuildRestUrlParameters(pResourcePath As %String,  pParameters As %String) As %String [Final]
+ClassMethod BuildRestUrlParameters(pResourcePath As %String, pParameters As %String) As %String [ Final ]
 {
 	#Dim index As %Integer    = 1
 	#Dim resourcePath         = pResourcePath
 	#Dim parameter As %String = ""
 	//
+	b
 	For index = 1 : 1 : $Length(pParameters, ",")
 	{
 		Set parameter    = $Piece(pParameters, ",", index)
@@ -33,7 +34,7 @@ ClassMethod BuildRestUrlParameters(pResourcePath As %String,  pParameters As %St
 	Return resourcePath
 }
 
-ClassMethod BuildRestUrlParametersEncoded(pResourcePath As %String,  pParameters As %String) As %String [Final]
+ClassMethod BuildRestUrlParametersEncoded(pResourcePath As %String, pParameters As %String) As %String [ Final ]
 {
 	#Dim index As %Integer    = 1
 	#Dim resourcePath         = pResourcePath
@@ -51,7 +52,7 @@ ClassMethod BuildRestUrlParametersEncoded(pResourcePath As %String,  pParameters
 	Return resourcePath
 }
 
-ClassMethod SetServicePoolingLastModifiedDate(serviceId As %String, lastModifiedDate As %String) As %Status [Final]
+ClassMethod SetServicePoolingLastModifiedDate(serviceId As %String, lastModifiedDate As %String) As %Status [ Final ]
 {
 	#Dim service As linker.data.config.Services = ##Class(linker.data.config.Services).%OpenId(serviceId)
 	Do service.Parameters.SetAt(lastModifiedDate, 1)

@@ -11,7 +11,7 @@ Method DoSpecifAction(pArgs...)
 		#Dim serviceId As %String                               = request.RestRequestVO.ServiceId
 		#Dim service As linker.data.config.Services             = ##Class(linker.data.config.Services).%OpenId(serviceId)
 		//
-		Do service.Parameters.SetAt($ZDate(+$Horolog - 1, 3), 1)
+		Do service.Parameters.SetAt($ZDate(+$Horolog - 2, 3), 1)
 		Do service.Parameters.SetAt($ZDate(+$Horolog - 1, 3), 2)
 		//
 		Set statusCode = service.%Save()

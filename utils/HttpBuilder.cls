@@ -69,11 +69,11 @@ ClassMethod CloudWalktokenRequest(pInstanceId As %String) As %String
 
 ClassMethod SkipperTokenRequestHeader(pInstanceId As %String) As %ArrayOfObjects
 {
-	#Dim credential As skipper.data.config.CredentialSkipper = (skipper.data.config.CredentialSkipper).InstanceIdIdxOpen(pInstanceId)
+	#Dim credential As skipper.data.config.CredentialSkipper = ##Class(skipper.data.config.CredentialSkipper).InstanceIdIdxOpen(pInstanceId)
 	#Dim headerArray As %ArrayOfDataTypes = ##class(%ArrayOfDataTypes).%New()
 	#Dim basicToken As %String = $Translate($System.Encryption.Base64Encode(credential.Username _":" _ credential.Password), $Char(13,10))
 	//
-	Do headerArray.SetAt("Authorization", "Basic "_ basicToken)
+	Do headerArray.SetAt("Basic "_ basicToken, "Authorization")
 	Do headerArray.SetAt("application/json","Content-Type")
 	//
 	Return headerArray

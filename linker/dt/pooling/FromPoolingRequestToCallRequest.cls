@@ -13,7 +13,7 @@ ClassMethod Transform(pSource As %RegisteredObject, ByRef pTarget As %Registered
 		#Dim target As linker.bo.restcall.genericoperation.Request = "" 
 		#Dim context As linker.bp.pooling.ProcessBPL.Context       = pTarget
 		#Dim exception As %Exception.General                       = ""
-		#Dim requestVO As linker.vo.rest.RestRequest               = ##Class(linker.vo.rest.RestRequest).%New() 
+		#Dim requestVO As linker.vo.rest.RestRequest               = ##Class(linker.vo.rest.RestRequest).%New()
 		//
 		Set requestVO.InstanceId   = source.InstanceId
 		Set requestVO.ServiceId    = source.ServiceId
