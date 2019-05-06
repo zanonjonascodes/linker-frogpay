@@ -29,6 +29,8 @@ Property Installment As sapb1.vo.cloudwalk.Installment;
 
 Property Card As sapb1.vo.cloudwalk.Card;
 
+Property Status As %String(MAXLEN="");
+
 Storage Default
 {
 <Data name="ParsedState">
@@ -73,6 +75,9 @@ Storage Default
 </Value>
 <Value name="14">
 <Value>Card</Value>
+</Value>
+<Value name="15">
+<Value>Status</Value>
 </Value>
 </Data>
 <State>ParsedState</State>
