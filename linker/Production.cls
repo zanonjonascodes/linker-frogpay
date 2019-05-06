@@ -132,12 +132,16 @@ XData ProductionDefinition
   </Item>
   <Item Name="Cloud Walk Get Payments" Category="" ClassName="linker.bo.restcall.OperationREST" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
-    <Setting Target="Adapter" Name="SSLConfig">SAPB1</Setting>
+    <Setting Target="Adapter" Name="SSLConfig">Frogpay</Setting>
   </Item>
   <Item Name="Pooling Cloud Walk Get Payments D-1" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="InstanceName">PHOEBUS</Setting>
     <Setting Target="Host" Name="ServiceName">Get Payments D-1</Setting>
     <Setting Target="Adapter" Name="CallInterval">36000</Setting>
+  </Item>
+  <Item Name="Skipper Get Payments" Category="" ClassName="linker.bo.restcall.OperationREST" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
+    <Setting Target="Adapter" Name="SSLConfig">SAPB1</Setting>
   </Item>
 </Production>
 }

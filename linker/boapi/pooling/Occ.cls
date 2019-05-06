@@ -1,7 +1,7 @@
 Class linker.boapi.pooling.Occ Extends linker.boapi.Pooling [ Final ]
 {
 
-ClassMethod PreSaveinRepository(pJSONString As %String, pService As linker.data.config.Services) As %String [ Final ]
+ClassMethod PreSaveInRepository(pJSONString As %String, pService As linker.data.config.Services) As %String [ Final ]
 {
 	Try
 	{

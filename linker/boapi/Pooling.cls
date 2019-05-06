@@ -15,10 +15,9 @@ ClassMethod ProcessJson(pRequest As linker.bo.pooling.saveinrepository.Request) 
 		#Dim service As linker.data.config.Services         = ##Class(linker.data.config.Services).%OpenId(pRequest.ServiceId)
 		#Dim serviceConsumer As linker.data.config.Services = service.Consumer
 		#Dim hasNext As %String                             = ""
-		#Dim classme As %RawString                          = ##Class(utils.FunctionSet).Lookup("REPOSITORY_PROCESS_JSON", service.TargetBusinessHost)
+		#Dim classname As %RawString                        = ##Class(utils.FunctionSet).Lookup("REPOSITORY_PROCESS_JSON", service.TargetBusinessHost)
 		//
-		Set hasNext = $ClassMethod(classname, "PreSaveinRepository", pRequest.JSONString , serviceConsumer, service.ResourcePath)
-		
+		Set hasNext = $ClassMethod(classname, "PreSaveInRepository", pRequest.JSONString , serviceConsumer, service.ResourcePath)
 	}
 	Catch (exception)
 	{
@@ -27,7 +26,7 @@ ClassMethod ProcessJson(pRequest As linker.bo.pooling.saveinrepository.Request) 
 	Return hasNext
 }
 
-ClassMethod PreSaveinRepository(pJSONString As %String, pServiceConsumer As linker.data.config.Services, pResourcePath As %String) As %String [ Abstract, Private ]
+ClassMethod PreSaveInRepository(pJSONString As %String, pServiceConsumer As linker.data.config.Services, pResourcePath As %String) As %String [ Abstract, Private ]
 {
 }
 

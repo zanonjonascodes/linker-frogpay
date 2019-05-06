@@ -1,7 +1,7 @@
 Class linker.boapi.pooling.Sapb1 Extends linker.boapi.Pooling [ Final ]
 {
 
-ClassMethod PreSaveinRepository(pJSONString As %String, pServiceConsumer As linker.data.config.Services, pResourcePath As %String) As %String [ Final ]
+ClassMethod PreSaveInRepository(pJSONString As %String, pServiceConsumer As linker.data.config.Services, pResourcePath As %String) As %String [ Final ]
 {
 	Try
 	{

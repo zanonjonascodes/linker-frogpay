@@ -5,11 +5,11 @@ Method DoSpecifAction(pArgs...)
 {
 	Try
 	{
-		#Dim statusCode As %Status                          = $System.Status.OK()
-		#Dim exception As %Exception.General                = ""
-		#Dim request As phoebus.message.payment.get.Request = pArgs(1)
-		#Dim serviceId As %String                           = request.RestRequestVO.ServiceId
-		#Dim service As linker.data.config.Services         = ##Class(linker.data.config.Services).%OpenId(serviceId)
+		#Dim statusCode As %Status                              = $System.Status.OK()
+		#Dim exception As %Exception.General                    = ""
+		#Dim request As skipper.message.transaction.get.Request = pArgs(1)
+		#Dim serviceId As %String                               = request.RestRequestVO.ServiceId
+		#Dim service As linker.data.config.Services             = ##Class(linker.data.config.Services).%OpenId(serviceId)
 		//
 		Do service.Parameters.SetAt($ZDate(+$Horolog - 1, 3), 1)
 		Do service.Parameters.SetAt($ZDate(+$Horolog - 1, 3), 2)

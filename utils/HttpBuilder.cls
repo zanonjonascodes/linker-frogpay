@@ -51,12 +51,12 @@ ClassMethod SAPBuildTokenResetCollecionts(pToken As %String) As %ArrayOfObjects
 	Return headerArray
 }
 
-ClassMethod PhoebusTokenRequestHeader(pToken As %String) As %ArrayOfObjects
+ClassMethod PhoebusTokenRequestHeader(pInstanceId As %String) As %ArrayOfObjects
 {
 	#Dim headerArray As %ArrayOfDataTypes = ##class(%ArrayOfDataTypes).%New()
 	#Dim token As %String                 = ##Class(linker.data.token.Token).idxInstanceIdOpen(pInstanceId).Token
 	//
-	Do headerArray.SetAt("Bearer "_ pToken  ,"Authorization")
+	Do headerArray.SetAt("Bearer "_ token  ,"Authorization")
 	Do headerArray.SetAt("application/json","Content-Type")
 	//
 	Return headerArray
@@ -74,6 +74,7 @@ ClassMethod SkipperTokenRequestHeader(pInstanceId As %String) As %ArrayOfObjects
 	#Dim basicToken As %String = $Translate($System.Encryption.Base64Encode(credential.Username _":" _ credential.Password), $Char(13,10))
 	//
 	Do headerArray.SetAt("Authorization", "Basic "_ basicToken)
+	Do headerArray.SetAt("application/json","Content-Type")
 	//
 	Return headerArray
 }

@@ -18,14 +18,14 @@ Method OnProcessInput(pInput As %RegisteredObject, Output pOutput As %Registered
 		#Dim statusCode As %Status           = $System.Status.OK()
 		#Dim spContext As %ProcedureContext  = ""
 		//
-		If (..ServiceName '= "" && ..InstanceName '= "")
+		If ((..ServiceName = "") && (..InstanceName = ""))
 		{
 			Set spContext = ##Class(%SQL.Statement).%ExecDirect(,"CALL linker_data_config.Services_ListAllPooling() ")
 		}
 		Else
 		{
 			Set spContext = ##Class(%SQL.Statement).%ExecDirect(,
-			  "CALL linker_data_config.Services_ListPoolingByServiceInstanceName(?, ?", ..ServiceName, ..InstanceName)
+			  "CALL linker_data_config.Services_ListPoolingByServiceInstanceName(?, ?)", ..ServiceName, ..InstanceName)
 		}
         While (spContext.%Next(.statusCode))
         {

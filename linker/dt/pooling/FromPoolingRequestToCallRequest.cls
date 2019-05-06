@@ -22,7 +22,7 @@ ClassMethod Transform(pSource As %RegisteredObject, ByRef pTarget As %Registered
 		Set target                 = $ClassMethod(source.TargetRequestClassName, "%New")
 		Set target.RestRequestVO   = requestVO
 		//
-		Do target.SetHeaderToken(context.Token)
+		Do target.SetHeaderToken(source.InstanceId)
 		//
 		Set context.ServiceRequest = target  
 	}

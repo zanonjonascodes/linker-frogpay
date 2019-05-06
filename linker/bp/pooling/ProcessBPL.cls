@@ -2,6 +2,11 @@
 Class linker.bp.pooling.ProcessBPL Extends Ens.BusinessProcessBPL
 {
 
+Storage Default
+{
+<Type>%Storage.Persistent</Type>
+}
+
 /// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
@@ -31,9 +36,6 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </context>
 <sequence xend='200' yend='900' >
 <switch name='Source Login' xpos='200' ypos='250' xend='200' yend='600' >
-<case condition='request.Type = "PHOEBUS"' name='PHOEBUS' >
-<assign name="Phoebus Token" property="context.Token" value="##Class(linker.data.token.Token).idxInstanceIdOpen(request.InstanceId).Token" action="set" xpos='335' ypos='400' />
-</case>
 <case condition='request.Type = "OCC"' name='OCC' >
 <assign name="Login URL" property="context.LoginURL" value="##Class(utils.FunctionSet).GetResourcePathByServiceNameInstance(request.InstanceId)" action="set" xpos='605' ypos='400' />
 <call name='Login OCC' target='OCC Get Token' async='0' xpos='605' ypos='500' >
@@ -62,7 +64,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </switch>
 <transform name='Create the service request' class='linker.dt.pooling.FromPoolingRequestToCallRequest' source='request' target='context' xpos='200' ypos='700' />
 <until name='No Next URL' condition='context.NextURL = ""' xpos='200' ypos='800' xend='200' yend='550' >
-<call name='Pooling' target='@request.TargetBusinessHost' async='0' xpos='205' ypos='245' >
+<call name='Pooling' target='@request.TargetBusinessHost' async='0' xpos='200' ypos='250' >
 <request type='linker.bo.restcall.genericoperation.Request' >
 <assign property="callrequest" value="context.ServiceRequest" action="set" />
 </request>
@@ -70,7 +72,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="context.JSONString" value="callresponse.RestResponseVO.HttpResponseBody" action="set" />
 </response>
 </call>
-<call name='Save Pooling' target='Save Pooling' async='0' xpos='195' ypos='333' >
+<call name='Save Pooling' target='Save Pooling' async='0' xpos='200' ypos='350' >
 <request type='linker.bo.pooling.saveinrepository.Request' >
 <assign property="callrequest.JSONString" value="context.JSONString" action="set" />
 <assign property="callrequest.ResourcePath" value="context.ServiceRequest.RestRequestVO.URL" action="set" />
@@ -84,11 +86,6 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </until>
 </sequence>
 </process>
-}
-
-Storage Default
-{
-<Type>%Storage.Persistent</Type>
 }
 
 }
