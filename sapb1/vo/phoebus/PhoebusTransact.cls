@@ -1,4 +1,4 @@
-Class sapb1.vo.phoebus.PhoebusTransact Extends %SerialObject
+Class sapb1.vo.phoebus.PhoebusTransact Extends (%SerialObject,%XML.Adaptor)
 {
 
 Property Nsu As %String;
