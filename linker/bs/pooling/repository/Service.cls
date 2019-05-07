@@ -11,7 +11,9 @@ Property ServiceName As %String;
 /// Instance name used to query repository
 Property InstanceId As %String;
 
-Parameter SETTINGS = "ServiceName:linker,InstanceId:linker";
+Property TargetBusinessHost As %String(MAXLEN="250");
+
+Parameter SETTINGS = "ServiceName:linker,InstanceId:linker,TargetBusinessHost:linker";
 
 /// Check for all Services that has configured to be polled.
 Method OnProcessInput(pInput As %RegisteredObject, Output pOutput As %RegisteredObject) As %Status
@@ -34,9 +36,10 @@ Method OnProcessInput(pInput As %RegisteredObject, Output pOutput As %Registered
         	Set request.RestRequestVO                 = ##Class(linker.vo.rest.RestRequest).%New()
         	Set request.RestRequestVO.HttpRequestBody = spContext.%Get("JSONString")
         	Set request.RestRequestVO.InstanceId      = spContext.%Get("InstanceId")
+        	Set request.RestRequestVO.ServiceId       = spContext.%Get("ServiceId")
         	Set request.RestRequestVO.RepositoryId    = spContext.%Get("ID")
         	// 
-        	#Dim targetBusinessHost As %String        = spContext.%Get("TargetBusinessHost")
+        	#Dim targetBusinessHost As %String        = $Select(..TargetBusinessHost = "" : spContext.%Get("TargetBusinessHost"), 1 : ..TargetBusinessHost)
         	#Dim repository As linker.data.Repository = ##Class(linker.data.Repository).%OpenId(spContext.%Get("ID")) 
         	//
         	Set repository.Status = 2

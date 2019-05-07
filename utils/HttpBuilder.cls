@@ -67,6 +67,22 @@ ClassMethod CloudWalktokenRequest(pInstanceId As %String) As %String
 	Return "&access_token=" _ ##Class(linker.data.token.Token).idxInstanceIdOpen(pInstanceId).Token
 }
 
+ClassMethod StoneTokenRequestHeader(pInstanceId As %String) As %ArrayOfObjects
+{
+	#Dim token As %String                 = ##Class(linker.data.token.Token).idxInstanceIdOpen(pInstanceId).Token
+	#Dim headerArray As %ArrayOfDataTypes = ##class(%ArrayOfDataTypes).%New()
+	#Dim xAuthorizationEncryptedData As %String = $Piece(token, $Char(13,10), 1)
+	#Dim xAuthorizationRawData As %String = $Piece(token, $Char(13,10), 2)
+	#Dim authorization As %String = $Piece(token, $Char(13,10), 3)
+	//
+	Do headerArray.SetAt(xAuthorizationEncryptedData, "x-authorization-encrypted-data")
+	Do headerArray.SetAt(xAuthorizationRawData, "x-authorization-raw-data")
+	Do headerArray.SetAt("Bearer "_ authorization, "authorization")
+	Do headerArray.SetAt("application/json","Content-Type")
+	//
+	Return headerArray
+}
+
 ClassMethod SkipperTokenRequestHeader(pInstanceId As %String) As %ArrayOfObjects
 {
 	#Dim credential As skipper.data.config.CredentialSkipper = ##Class(skipper.data.config.CredentialSkipper).InstanceIdIdxOpen(pInstanceId)

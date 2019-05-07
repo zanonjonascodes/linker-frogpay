@@ -86,7 +86,7 @@ ClassMethod SetStatus(pRepositoryId As %Integer, pStatus As %String, pErrorMessa
 	}
 }
 
-Query ListByServiceNameInstanceId(pServiceName As %String, pInstanceId As %String, pRetryTimes As %Integer) As %SQLQuery(SELECTMODE = "ODBC") [SQLProc]
+Query ListByServiceNameInstanceId(pServiceName As %String, pInstanceId As %String, pRetryTimes As %Integer = 3) As %SQLQuery(SELECTMODE = "ODBC") [SQLProc]
 {
 	SELECT Id
 	      ,Service->Id As ServiceId
