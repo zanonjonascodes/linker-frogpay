@@ -17,7 +17,14 @@ ClassMethod ProcessJson(pRequest As linker.bo.pooling.saveinrepository.Request) 
 		#Dim hasNext As %String                             = ""
 		#Dim classname As %RawString                        = ##Class(utils.FunctionSet).Lookup("REPOSITORY_PROCESS_JSON", service.TargetBusinessHost)
 		//
-		Set hasNext = $ClassMethod(classname, "PreSaveInRepository", pRequest.JSONString , serviceConsumer, pRequest.ResourcePath)
+		If (pRequest.JSONString = "") //($IsObject(pRequest.DataStream) && (pRequest.DataStream.Size > 0))
+		{
+			Set hasNext = $ClassMethod(classname, "PreSaveInRepository", pRequest.DataStream, serviceConsumer, pRequest.ResourcePath)
+		}
+		Else
+		{
+			Set hasNext = $ClassMethod(classname, "PreSaveInRepository", pRequest.JSONString, serviceConsumer, pRequest.ResourcePath)
+		}
 	}
 	Catch (exception)
 	{
@@ -30,7 +37,7 @@ ClassMethod PreSaveInRepository(pJSONString As %String, pServiceConsumer As link
 {
 }
 
-ClassMethod SaveInRepository(pObjects As %Collection.AbstractIterator, pServiceConsumer As linker.data.config.Services) [ Final, Private ]
+ClassMethod SaveInRepository(pObjects As %Collection.AbstractIterator, pServiceConsumer As linker.data.config.Services) [ Private ]
 {
 	Try
 	{

@@ -5,6 +5,8 @@ Parameter RESPONSECLASSNAME = "linker.bo.pooling.saveinrepository.Response";
 
 Property JSONString As %String(MAXLEN = "");
 
+Property DataStream As %Stream.GlobalCharacter;
+
 Property ServiceId As %Integer;
 
 Property ResourcePath As %String(MAXLEN = 250);
@@ -21,6 +23,12 @@ Storage Default
 </Value>
 <Value name="3">
 <Value>ResourcePath</Value>
+</Value>
+<Value name="4">
+<Value>Objects</Value>
+</Value>
+<Value name="5">
+<Value>DataStream</Value>
 </Value>
 </Data>
 <DefaultData>RequestDefaultData</DefaultData>
