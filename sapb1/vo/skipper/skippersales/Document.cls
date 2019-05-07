@@ -1,9 +1,15 @@
-Class sapb1.vo.skipper.skippersales.Document Extends (%SerialObject,%XML.Adaptor)
+Class sapb1.vo.skipper.skippersales.Document Extends (%SerialObject, %XML.Adaptor)
 {
 
+<<<<<<< HEAD
+Property Number As %String(MAXLEN = "");
+
+Property Type As %String(MAXLEN = "");
+=======
 Property Number As %String(MAXLEN="");
 
 Property Type As %String(MAXLEN="");
+>>>>>>> branch 'develop' of https://github.com/zanonjonascodes/linker-frogpay.git
 
 Storage Default
 {
