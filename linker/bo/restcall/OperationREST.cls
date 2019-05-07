@@ -97,6 +97,7 @@ Method CallRestURL(httpMethod As %String, pRequest As linker.bo.restcall.generic
 		#Dim httpRequestVO As %String                      = pRequest.RestRequestVO
 		#Dim httpResponseVO As linker.vo.rest.RestResponse = ##Class(linker.vo.rest.RestResponse).%New()
 		#Dim jsonResponse As %String                       = ""
+		#dim stream As %Stream.Object                      = ""
 		//
 		Set ..URL      = httpRequestVO.URL
 		//
@@ -104,11 +105,15 @@ Method CallRestURL(httpMethod As %String, pRequest As linker.bo.restcall.generic
 		//
 		Set statusCode     = ..Adapter.SendFormDataArray(.httpResponse, httpMethod, ..HttpRequest , "", .httpRequestVO, ..URL)
 		Set ..HttpResponse = httpResponse
-		Set jsonResponse   = ..GetHttpResponseBodyData()
+		Set jsonResponse   = ..GetHttpResponseBodyData(.stream)
 		//
 		If (jsonResponse '= "")
 		{
 			Set httpResponseVO.HttpResponseBody = jsonResponse
+		}
+		Else
+		{
+		 Set httpResponseVO.HttpResponseStreamBody = stream
 		}
 		Set httpResponseVO.HttpStatusCode = ..HttpResponse.StatusCode
 		Set httpResponseVO.Status         = statusCode
@@ -144,13 +149,19 @@ Method CallRestURL(httpMethod As %String, pRequest As linker.bo.restcall.generic
 	Return statusCode
 }
 
-Method GetHttpResponseBodyData() As %String [ Private ]
+Method GetHttpResponseBodyData(pStream As %Stream.Object) As %String [ Private ]
 {
 	Set httpResponseBody = ""
-	//		
+	//
 	If ($IsObject(..HttpResponse.Data))
 	{
-		While ('..HttpResponse.Data.AtEnd) 
+		If (..HttpResponse.Data.Size > 3641144)
+		{
+			Set pStream = ..HttpResponse.Data
+			//
+			Return ""
+		}
+		While ('..HttpResponse.Data.AtEnd)
 		{
 			Set httpResponseBody = httpResponseBody _ ..HttpResponse.Data.Read()
 		}

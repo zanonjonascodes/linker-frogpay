@@ -11,6 +11,8 @@ Property ServiceId As %String;
 
 Property InstanceId As %String;
 
+Property RepositoryId As %String;
+
 Storage Default
 {
 <Data name="RestRequestState">
@@ -28,6 +30,9 @@ Storage Default
 </Value>
 <Value name="5">
 <Value>InstanceId</Value>
+</Value>
+<Value name="6">
+<Value>RepositoryId</Value>
 </Value>
 </Data>
 <State>RestRequestState</State>

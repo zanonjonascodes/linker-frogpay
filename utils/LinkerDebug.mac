@@ -141,3 +141,23 @@ TestMapAddress() Public
 	Do ##Class(sapb1.dt.businesspartner.FromProfileToBusinessPartner).Transform(context, .target)
 	Write "Update", !, target
 }
+
+Correlate() Public
+{
+	Set XML = "<?xml version=""1.0"" encoding=""utf-8""?><Conciliation><Header><GenerationDateTime>20190506073022</GenerationDateTime><StoneCode>131122052</StoneCode><LayoutVersion>2.2</LayoutVersion><FileId>0</FileId><ReferenceDate>20190505</ReferenceDate></Header><FinancialTransactions><Transaction><Events><CancellationCharges>0</CancellationCharges><Cancellations>1</Cancellations><Captures>0</Captures><ChargebackRefunds>0</ChargebackRefunds><Chargebacks>0</Chargebacks><Payments>0</Payments></Events><AcquirerTransactionKey>22393414070476</AcquirerTransactionKey><InitiatorTransactionKey>5236790483510390503110018</InitiatorTransactionKey><AuthorizationDateTime>20190503143300</AuthorizationDateTime><CaptureLocalDateTime>20190503113300</CaptureLocalDateTime><Poi><PoiType>1</PoiType><SerialNumber>523679048</SerialNumber></Poi><EntryMode>1</EntryMode><Cancellations><Cancellation><OperationKey>2259003429488555</OperationKey><CancellationDateTime>20190505080315</CancellationDateTime><ReturnedAmount>14.000000</ReturnedAmount><Billing><ChargedAmount>13.805400</ChargedAmount><PrevisionChargeDate>20190506</PrevisionChargeDate></Billing></Cancellation></Cancellations><Installments><Installment><InstallmentNumber>1</InstallmentNumber><GrossAmount>14.000000</GrossAmount><NetAmount>13.805400</NetAmount><PrevisionPaymentDate>20190506</PrevisionPaymentDate><OriginalPaymentDate>20190506</OriginalPaymentDate></Installment></Installments></Transaction><Transaction><Events><CancellationCharges>0</CancellationCharges><Cancellations>0</Cancellations><Captures>1</Captures><ChargebackRefunds>0</ChargebackRefunds><Chargebacks>0</Chargebacks><Payments>0</Payments></Events><AcquirerTransactionKey>22593429746912</AcquirerTransactionKey><InitiatorTransactionKey>5248883343510390505090002</InitiatorTransactionKey><AuthorizationDateTime>20190505123044</AuthorizationDateTime><CaptureLocalDateTime>20190505093044</CaptureLocalDateTime><International>False</International><AccountType>2</AccountType><InstallmentType>2</InstallmentType><NumberOfInstallments>4</NumberOfInstallments><AuthorizedAmount>900.000000</AuthorizedAmount><CapturedAmount>900.000000</CapturedAmount><AuthorizationCurrencyCode>986</AuthorizationCurrencyCode><IssuerAuthorizationCode>034163</IssuerAuthorizationCode><BrandId>2</BrandId><CardNumber>541187******2799</CardNumber><Poi><PoiType>1</PoiType><SerialNumber>524888334</SerialNumber></Poi><EntryMode>1</EntryMode><Installments><Installment><InstallmentNumber>1</InstallmentNumber><GrossAmount>225.000000</GrossAmount><NetAmount>219.172500</NetAmount><PrevisionPaymentDate>20190604</PrevisionPaymentDate></Installment><Installment><InstallmentNumber>2</InstallmentNumber><GrossAmount>225.000000</GrossAmount><NetAmount>219.172500</NetAmount><PrevisionPaymentDate>20190704</PrevisionPaymentDate></Installment><Installment><InstallmentNumber>3</InstallmentNumber><GrossAmount>225.000000</GrossAmount><NetAmount>219.172500</NetAmount><PrevisionPaymentDate>20190805</PrevisionPaymentDate></Installment><Installment><InstallmentNumber>4</InstallmentNumber><GrossAmount>225.000000</GrossAmount><NetAmount>219.172500</NetAmount><PrevisionPaymentDate>20190902</PrevisionPaymentDate></Installment></Installments></Transaction></FinancialTransactions><FinancialEvents/><FinancialTransactionsAccounts/><FinancialEventAccounts/><Payments/><Trailer><CapturedTransactionsQuantity>7014</CapturedTransactionsQuantity><CanceledTransactionsQuantity>1</CanceledTransactionsQuantity><PaidInstallmentsQuantity>0</PaidInstallmentsQuantity><ChargedCancellationsQuantity>0</ChargedCancellationsQuantity><ChargebacksQuantity>0</ChargebacksQuantity><ChargebacksRefundQuantity>0</ChargebacksRefundQuantity><ChargedChargebacksQuantity>0</ChargedChargebacksQuantity><PaidChargebacksRefundQuantity>0</PaidChargebacksRefundQuantity><PaidEventsQuantity>0</PaidEventsQuantity><ChargedEventsQuantity>0</ChargedEventsQuantity></Trailer></Conciliation>"
+	Set xmlReader = ##Class(%XML.Reader).%New()
+	//Set status = xmlReader.OpenString(XML)
+	Set request = ##Class(Ens.Request).%OpenId(22092)
+	Set status = xmlReader.OpenStream(request.DataStream)
+	If ($System.Status.IsError(status))
+	{
+		Do $System.Status.DisplayError(status)
+		Return
+	}
+	Do xmlReader.Correlate("Conciliation", "sapb1.vo.stone.conciliation.Conciliation")
+	If (xmlReader.Next(.conciliation, .status))
+	{
+		Write conciliation
+	}
+	Write $System.Status.DisplayError(status)
+} 

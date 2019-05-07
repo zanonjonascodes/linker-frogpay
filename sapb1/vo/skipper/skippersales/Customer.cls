@@ -1,10 +1,14 @@
-Class sapb1.vo.skipper.skippersales.Customer Extends (%SerialObject, %XML.Adaptor)
-{
-
-Property Name As %String(MAXLEN = "");
-
-Property Document As sapb1.vo.skipper.skippersales.Document;
-
+Class sapb1.vo.skipper.skippersales.Customer Extends (%SerialObject, %XML.Adaptor)
+{
+<<<<<<< HEAD
+
+Property Name As %String(MAXLEN = "");
+=======
+Property Name As %String(MAXLEN="");
+>>>>>>> branch 'develop' of https://github.com/zanonjonascodes/linker-frogpay.git
+
+Property Document As sapb1.vo.skipper.skippersales.Document;
+
 Storage Default
 {
 <Data name="CustomerState">
@@ -20,4 +24,4 @@ Storage Default
 <Type>%Storage.Serial</Type>
 }
 
-}
+}

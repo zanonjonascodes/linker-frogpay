@@ -3,6 +3,7 @@ Class sapb1.vo.skipper.skippersales.SkipperSales Extends (%SerialObject, %XML.Ad
 
 Property CustomerName As sapb1.vo.skipper.skippersales.Customer;
 
+<<<<<<< HEAD
 Property Acquirer As %String(MAXLEN = "");
 
 Property CardBrand As %String(MAXLEN = "");
@@ -16,6 +17,21 @@ Property AuthorizationCode As %String(MAXLEN = "");
 Property NumberOfInstallments As %String(MAXLEN = "");
 
 Property ProductType As %String(MAXLEN = "");
+=======
+Property Acquirer As %String(MAXLEN="");
+
+Property CardBrand As %String(MAXLEN="");
+
+Property DateTime As %String(MAXLEN="");
+
+Property NsuTransaction As %String(MAXLEN="");
+
+Property AuthorizationCode As %String(MAXLEN="");
+
+Property NumberOfInstallments As %String(MAXLEN="");
+
+Property ProductType As %String(MAXLEN="");
+>>>>>>> branch 'develop' of https://github.com/zanonjonascodes/linker-frogpay.git
 
 Property GrossValue As %Double;
 
@@ -25,9 +41,15 @@ Property DiscountValueAcquirer As %Double;
 
 Property NetValue As %Double;
 
+<<<<<<< HEAD
 Property Terminal As %String(MAXLEN = "");
 
 Property Status As %String(MAXLEN = "");
+=======
+Property Terminal As %String(MAXLEN="");
+
+Property Status As %String(MAXLEN="");
+>>>>>>> branch 'develop' of https://github.com/zanonjonascodes/linker-frogpay.git
 
 Storage Default
 {

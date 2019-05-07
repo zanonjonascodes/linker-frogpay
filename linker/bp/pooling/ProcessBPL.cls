@@ -28,6 +28,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <parameter name='MAXLEN'  value='250' />
 </parameters>
 </property>
+<property name='DataStream' type='%Stream.GlobalCharacter' instantiate='0' />
 </context>
 <sequence xend='200' yend='900' >
 <switch name='Source Login' xpos='200' ypos='250' xend='200' yend='600' >
@@ -65,6 +66,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </request>
 <response type='linker.bo.restcall.genericoperation.Response' >
 <assign property="context.JSONString" value="callresponse.RestResponseVO.HttpResponseBody" action="set" />
+<assign property="context.DataStream" value="callresponse.RestResponseVO.HttpResponseStreamBody" action="set" />
 </response>
 </call>
 <call name='Save Pooling' target='Save Pooling' async='0' xpos='200' ypos='350' >
@@ -72,6 +74,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="callrequest.JSONString" value="context.JSONString" action="set" />
 <assign property="callrequest.ResourcePath" value="context.ServiceRequest.RestRequestVO.URL" action="set" />
 <assign property="callrequest.ServiceId" value="request.ServiceId" action="set" />
+<assign property="callrequest.DataStream" value="context.DataStream" action="set" />
 </request>
 <response type='linker.bo.pooling.saveinrepository.Response' >
 <assign property="context.NextURL" value="callresponse.NextURL" action="set" />

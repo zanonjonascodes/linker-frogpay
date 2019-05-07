@@ -16,7 +16,6 @@ ClassMethod PreSaveInRepository(pJSONString As %String, pService As linker.data.
 		{
 			Return ""
 		}
-		break
 		#Dim salesIterator As %Collection.AbstractIterator = sales.%GetIterator()
 		#Dim hasNext As %String                            = "" 
 		//
