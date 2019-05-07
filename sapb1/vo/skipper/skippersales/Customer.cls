@@ -1,7 +1,10 @@
-Class sapb1.vo.skipper.skippersales.Customer Extends (%SerialObject,%XML.Adaptor)
+Class sapb1.vo.skipper.skippersales.Customer Extends (%SerialObject, %XML.Adaptor)
 {
-Property Name As %String(MAXLEN="");
+
+Property Name As %String(MAXLEN = "");
+
 Property Document As sapb1.vo.skipper.skippersales.Document;
+
 Storage Default
 {
 <Data name="CustomerState">

@@ -1,20 +1,34 @@
-Class sapb1.vo.skipper.skippersales.SkipperSales Extends (%SerialObject,%XML.Adaptor)
+Class sapb1.vo.skipper.skippersales.SkipperSales Extends (%SerialObject, %XML.Adaptor)
 {
+
 Property CustomerName As sapb1.vo.skipper.skippersales.Customer;
 
-Property Acquirer As %String(MAXLEN="");
-Property CardBrand As %String(MAXLEN="");
-Property DateTime As %String(MAXLEN="");
-Property NsuTransaction As %String(MAXLEN="");
-Property AuthorizationCode As %String(MAXLEN="");
-Property NumberOfInstallments As %String(MAXLEN="");
-Property ProductType As %String(MAXLEN="");
+Property Acquirer As %String(MAXLEN = "");
+
+Property CardBrand As %String(MAXLEN = "");
+
+Property DateTime As %String(MAXLEN = "");
+
+Property NsuTransaction As %String(MAXLEN = "");
+
+Property AuthorizationCode As %String(MAXLEN = "");
+
+Property NumberOfInstallments As %String(MAXLEN = "");
+
+Property ProductType As %String(MAXLEN = "");
+
 Property GrossValue As %Double;
+
 Property DiscountValueSubacquirer As %Double;
+
 Property DiscountValueAcquirer As %Double;
+
 Property NetValue As %Double;
-Property Terminal As %String(MAXLEN="");
-Property Status As %String(MAXLEN="");
+
+Property Terminal As %String(MAXLEN = "");
+
+Property Status As %String(MAXLEN = "");
+
 Storage Default
 {
 <Data name="SkipperSalesState">

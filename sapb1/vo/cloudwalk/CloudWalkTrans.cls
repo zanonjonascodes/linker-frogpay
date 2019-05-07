@@ -1,148 +1,54 @@
 Class sapb1.vo.cloudwalk.CloudWalkTrans Extends (%SerialObject,%XML.Adaptor)
 {
 
-Property CaptureMethod As %String;
+Property Parsed As sapb1.vo.cloudwalk.Parsed;
 
-Property NsuReference As %String;
+Property Status As %String(MAXLEN="");
 
-Property TransactionId As %String;
+Property LogicalNumber As %String(MAXLEN="");
 
-Property Amount As %Integer;
+Property Id As %String(MAXLEN="");
 
-Property MerchantDocument As %String;
+Property FinishedAt As %String(MAXLEN="");
 
-Property MerchantName As %String;
+Property SerialNumber As %String(MAXLEN="");
 
-Property MerchantId As %String;
+Property TransactionType As %String(MAXLEN="");
 
-Property Acquirer As %String;
+Property StartedAt As %String(MAXLEN="");
 
-Property Type As %String;
+Property Detail As %String(MAXLEN="");
 
-Property Nsu As %String;
-
-Property AuthorizationCode As %String;
-
-Property InstallmentQuantity As %String;
-
-Property InstallmentType As %String;
-
-Property StatusReason As %String;
-
-Property PaymentMethod As %String;
-
-Property CardFirstDigits As %String;
-
-Property CardExpirationDate As %String;
-
-Property CardBrand As %String;
-
-Property CardLastDigits As %String;
-
-Property CardHolderName As %String;
-
-Property Status As %String;
-
-Property CwStatus As %String;
-
-Property CwLogicalNumber As %String;
-
-Property CwId As %String;
-
-Property FinishedAt As %String;
-
-Property SerialNumber As %String;
-
-Property TransactionType As %String;
-
-Property StartedAt As %String;
 
 Storage Default
 {
 <Data name="CloudWalkTransState">
 <Value name="1">
-<Value>CaptureMethod</Value>
+<Value>Parsed</Value>
 </Value>
 <Value name="2">
-<Value>NsuReference</Value>
-</Value>
-<Value name="3">
-<Value>TransactionId</Value>
-</Value>
-<Value name="4">
-<Value>Amount</Value>
-</Value>
-<Value name="5">
-<Value>MerchantDocument</Value>
-</Value>
-<Value name="6">
-<Value>MerchantName</Value>
-</Value>
-<Value name="7">
-<Value>MerchantId</Value>
-</Value>
-<Value name="8">
-<Value>Acquirer</Value>
-</Value>
-<Value name="9">
-<Value>Type</Value>
-</Value>
-<Value name="10">
-<Value>Nsu</Value>
-</Value>
-<Value name="11">
-<Value>AuthorizationCode</Value>
-</Value>
-<Value name="12">
-<Value>InstallmentQuantity</Value>
-</Value>
-<Value name="13">
-<Value>InstallmentType</Value>
-</Value>
-<Value name="14">
-<Value>StatusReason</Value>
-</Value>
-<Value name="15">
-<Value>PaymentMethod</Value>
-</Value>
-<Value name="16">
-<Value>CardFirstDigits</Value>
-</Value>
-<Value name="17">
-<Value>CardExpirationDate</Value>
-</Value>
-<Value name="18">
-<Value>CardBrand</Value>
-</Value>
-<Value name="19">
-<Value>CardLastDigits</Value>
-</Value>
-<Value name="20">
-<Value>CardHolderName</Value>
-</Value>
-<Value name="21">
 <Value>Status</Value>
 </Value>
-<Value name="22">
-<Value>CwStatus</Value>
+<Value name="3">
+<Value>LogicalNumber</Value>
 </Value>
-<Value name="23">
-<Value>CwLogicalNumber</Value>
+<Value name="4">
+<Value>Id</Value>
 </Value>
-<Value name="24">
-<Value>CwId</Value>
-</Value>
-<Value name="25">
+<Value name="5">
 <Value>FinishedAt</Value>
 </Value>
-<Value name="26">
+<Value name="6">
 <Value>SerialNumber</Value>
 </Value>
-<Value name="27">
+<Value name="7">
 <Value>TransactionType</Value>
 </Value>
-<Value name="28">
+<Value name="8">
 <Value>StartedAt</Value>
+</Value>
+<Value name="9">
+<Value>Detail</Value>
 </Value>
 </Data>
 <State>CloudWalkTransState</State>
