@@ -1,7 +1,7 @@
-Class skipper.message.transaction.get.Request Extends linker.bo.restcall.get.Request
+Class skipper.transaction.get.Request Extends linker.bo.restcall.get.Request
 {
 
-Parameter RESPONSECLASSNAME As %String = "skipper.message.transaction.get.Response";
+Parameter RESPONSECLASSNAME As %String = "skipper.transaction.get.Response";
 
 Method SetHeaderToken(pInstanceId As %String)
 {

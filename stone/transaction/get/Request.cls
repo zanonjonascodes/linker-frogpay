@@ -1,7 +1,7 @@
-Class stone.message.conciliation.get.Request Extends linker.bo.restcall.get.Request
+Class stone.transaction.get.Request Extends linker.bo.restcall.get.Request
 {
 
-Parameter RESPONSECLASSNAME As %String = "stone.message.conciliation.get.Response";
+Parameter RESPONSECLASSNAME As %String = "stone.transaction.get.Response";
 
 Method SetHeaderToken(pToken As %String)
 {

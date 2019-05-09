@@ -10,7 +10,7 @@ XData ProductionDefinition
 <Production Name="linker.Production" TestingEnabled="true" LogGeneralTraceEvents="true">
   <Description></Description>
   <ActorPoolSize>2</ActorPoolSize>
-  <Item Name="Phoebus Get Payments" Category="" ClassName="linker.bo.restcall.OperationREST" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Phoebus Get Transactions" Category="" ClassName="linker.bo.restcall.OperationREST" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
     <Setting Target="Adapter" Name="SSLConfig">SAPB1</Setting>
   </Item>
@@ -125,32 +125,32 @@ XData ProductionDefinition
     <Setting Target="Host" Name="ServiceName">SAPB1 NFE BPL</Setting>
     <Setting Target="Adapter" Name="CallInterval">3000</Setting>
   </Item>
-  <Item Name="Pooling Phoebus Get Payments D-1" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Pooling Phoebus Get Transactions" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="InstanceName">PHOEBUS</Setting>
-    <Setting Target="Host" Name="ServiceName">Get Payments D-1</Setting>
+    <Setting Target="Host" Name="ServiceName">Get Transactions</Setting>
     <Setting Target="Adapter" Name="CallInterval">3600000</Setting>
   </Item>
-  <Item Name="Cloud Walk Get Payments" Category="" ClassName="linker.bo.restcall.OperationREST" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Cloud Walk Get Transactions" Category="" ClassName="linker.bo.restcall.OperationREST" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
     <Setting Target="Adapter" Name="SSLConfig">Frogpay</Setting>
   </Item>
-  <Item Name="Pooling Cloud Walk Get Payments D-1" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
-    <Setting Target="Host" Name="InstanceName">PHOEBUS</Setting>
-    <Setting Target="Host" Name="ServiceName">Get Payments D-1</Setting>
+  <Item Name="Pooling Cloud Walk Get Transactions" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="InstanceName">CLOUD WALK</Setting>
+    <Setting Target="Host" Name="ServiceName">Get Transactions</Setting>
     <Setting Target="Adapter" Name="CallInterval">36000</Setting>
   </Item>
-  <Item Name="Skipper Get Payments" Category="" ClassName="linker.bo.restcall.OperationREST" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Skipper Get Transactions" Category="" ClassName="linker.bo.restcall.OperationREST" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
     <Setting Target="Adapter" Name="SSLConfig">SAPB1</Setting>
   </Item>
-  <Item Name="Pooling Skipper Get Payments D-1 Pago" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Pooling Skipper Get Transactions Pago" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="InstanceName">SKIPPER</Setting>
-    <Setting Target="Host" Name="ServiceName">Get Paymens D-1 Pago</Setting>
+    <Setting Target="Host" Name="ServiceName">Get Transactions Pago</Setting>
     <Setting Target="Adapter" Name="CallInterval">36000</Setting>
   </Item>
-  <Item Name="Pooling Skipper Get Payments D-1 Antecipado" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Pooling Skipper Get Transactions Antecipado" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="InstanceName">SKIPPER</Setting>
-    <Setting Target="Host" Name="ServiceName">Get Paymens D-1 Antecipado</Setting>
+    <Setting Target="Host" Name="ServiceName">Get Transactions Antecipado</Setting>
     <Setting Target="Adapter" Name="CallInterval">36000</Setting>
   </Item>
   <Item Name="SAPB1 UDT Phoebus Transaction" Category="" ClassName="linker.bo.restcall.OperationREST" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
@@ -166,18 +166,16 @@ XData ProductionDefinition
     <Setting Target="Host" Name="ServiceName">Frog Pay Save Transaction</Setting>
     <Setting Target="Host" Name="TargetBusinessHost"></Setting>
   </Item>
-  <Item Name="Frog Pay Save Transaction BPL" Category="" ClassName="linker.bp.frogpay.transactions.ProcessBPL" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
-  </Item>
   <Item Name="Token Manager" Category="" ClassName="linker.bo.tokenmanager.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
-  <Item Name="Stone Get Conciliation" Category="" ClassName="linker.bo.restcall.OperationREST" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Stone Get Transactions" Category="" ClassName="linker.bo.restcall.OperationREST" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="SSLCheckServerIdentity">0</Setting>
     <Setting Target="Adapter" Name="SSLConfig">SAPB1</Setting>
     <Setting Target="Adapter" Name="ResponseTimeout">300</Setting>
   </Item>
-  <Item Name="Pooling Stone Get Conciliation" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Pooling Stone Get Transactions" Category="" ClassName="linker.bs.pooling.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="InstanceName">STONE</Setting>
-    <Setting Target="Host" Name="ServiceName">Get Conciliation</Setting>
+    <Setting Target="Host" Name="ServiceName">Get Transactions</Setting>
     <Setting Target="Adapter" Name="CallInterval">36000</Setting>
   </Item>
 </Production>

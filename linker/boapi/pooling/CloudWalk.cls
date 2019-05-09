@@ -30,7 +30,7 @@ ClassMethod PreSaveInRepository(pJSONString As %String, pService As linker.data.
 		//
 		If (page < totalPages)
 		{
-			Set hasNext = $Piece(pResourcePath, "&page=", 1) _ "&page=" _ (page + 1)
+			Set hasNext = $Piece(pResourcePath, "&page=", 1) _ "&page=" _ (page + 1) _ "&" _ $Piece($Piece(pResourcePath, "&page=", 2), "&", 2)
 		}
 	}
 	Catch (exception)

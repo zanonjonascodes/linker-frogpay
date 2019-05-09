@@ -25,6 +25,11 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <parameter name='MAXLEN'  value='' />
 </parameters>
 </property>
+<property name='dummy' type='%String' instantiate='0' >
+<parameters>
+<parameter name='MAXLEN'  value='50' />
+</parameters>
+</property>
 </context>
 <sequence xend='200' yend='950' >
 <assign name="Service" property="context.Service" value="##Class(linker.data.config.Services).%OpenId(request.RestRequestVO.ServiceId)" action="set" xpos='200' ypos='250' />
@@ -38,15 +43,17 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="context.SAPToken" value="callresponse.Token" action="set" />
 </response>
 </call>
-<transform name='From Cloud Walk to VO' class='linker.dt.phoebus.FromPhoebusPaymentsToPhoebusTransactDTL' source='context.TransactionDynamic' target='context.TransactionVO' xpos='200' ypos='550' />
-<transform name='From Phoebus VO to UDT' class='linker.dt.phoebus.FromPhoebusPaymentsToPhoebusTransactDTL' source='context.TransactionVO' target='context.UdtJson' xpos='200' ypos='650' />
-<assign name="Save Transaction URL" property="context.SaveTransactionURL" value="##Class(utils.FunctionSet).GetResourcePathByServiceNameInstance(context.Service.Instance.%Id(), context.Service.ServiceName)" action="set" xpos='200' ypos='750' />
-<call name='Save Phoebus UDT' target='SAPB1 UDT Phoebus Transaction' async='1' xpos='200' ypos='850' >
-<request type='sapb1.bo.udtphoebustransact.post.Request' >
+<transform name='From Cloud Walk to VO' class='linker.dt.cloudwalk.FromCloudWalkTransToVO' source='context.TransactionDynamic' target='context.TransactionVO' xpos='200' ypos='550' />
+<transform name='From Cloud Walk VO to UDT' class='linker.dt.cloudwalk.FromCloudWalkTransToVO' source='context.TransactionVO' target='context.UdtJson' xpos='200' ypos='650' />
+<assign name="Save Transaction URL" property="context.SaveTransactionURL" value="##Class(utils.FunctionSet).GetResourcePathByServiceNameInstance(context.Service.Instance.%Id(), &quot;SAPB1 UDT Cloud Walk Transaction&quot;)" action="set" xpos='200' ypos='750' />
+<call name='Save Cloud Walk UDT' target='SAPB1 UDT Cloud Walk Transaction' async='1' xpos='200' ypos='850' >
+<request type='sapb1.bo.udtcloudwaltransact.post.Request' >
 <assign property="callrequest.RestRequestVO.HttpRequestBody" value="context.UdtJson" action="set" />
 <assign property="callrequest.RestRequestVO.InstanceId" value="request.RestRequestVO.InstanceId" action="set" />
 <assign property="callrequest.RestRequestVO.ServiceId" value="request.RestRequestVO.ServiceId" action="set" />
 <assign property="callrequest.RestRequestVO.URL" value="context.SaveTransactionURL" action="set" />
+<assign property="context.dummy" value="callrequest.SetHeaderToken()" action="set" />
+<assign property="callrequest.RestRequestVO.RepositoryId" value="request.RestRequestVO.RepositoryId" action="set" />
 </request>
 <response type='Ens.Response' />
 </call>

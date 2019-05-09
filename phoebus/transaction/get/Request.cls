@@ -1,7 +1,7 @@
-Class phoebus.message.payment.get.Request Extends linker.bo.restcall.get.Request
+Class phoebus.transaction.get.Request Extends linker.bo.restcall.get.Request
 {
 
-Parameter RESPONSECLASSNAME As %String = "phoebus.message.payment.get.Response";
+Parameter RESPONSECLASSNAME As %String = "phoebus.transaction.get.Response";
 
 Method SetHeaderToken(pToken As %String)
 {

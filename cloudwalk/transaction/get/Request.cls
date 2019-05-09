@@ -1,7 +1,7 @@
-Class cloudwalk.message.payment.get.Request Extends linker.bo.restcall.get.Request
+Class cloudwalk.transaction.get.Request Extends linker.bo.restcall.get.Request
 {
 
-Parameter RESPONSECLASSNAME As %String = "cloudwalk.message.payment.get.Response";
+Parameter RESPONSECLASSNAME As %String = "cloudwalk.transaction.get.Response";
 
 Method SetHeaderToken(pInstanceId As %String)
 {
